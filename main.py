@@ -1,6 +1,7 @@
 from flask import Flask
 from data import db_session
 from data.users import User
+from data.jobs import Jobs
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -23,6 +24,15 @@ def main():
         user.address = el[5]
         user.email = el[6]
         db_sess.add(user)
+        db_sess.commit()
+    for el in [[1, 'deployment of residential modules 1 and 2', 15, '2, 3', False]]:
+        job = Jobs()
+        job.team_leader = el[0]
+        job.job = el[1]
+        job.work_size = el[2]
+        job.collaborators = el[3]
+        job.is_finished = el[4]
+        db_sess.add(job)
         db_sess.commit()
 
 
